@@ -32,7 +32,7 @@ module RSpecSystem
         when 'mac'
           custom_config << "    prov.customize ['modifyvm', :id, '--macaddress1','#{value}']\n"
         when 'disk'
-          file_to_disk = "/tmp/sparedisk#{name}"
+          file_to_disk = ENV['HOME'] + "/sparedisk#{name}"
           value = value * 1024
           custom_config << " prov.customize ['createhd', '--filename', '#{file_to_disk}', '--size', #{value}]\n"
           custom_config << " prov.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', '#{file_to_disk}.vdi']\n"
