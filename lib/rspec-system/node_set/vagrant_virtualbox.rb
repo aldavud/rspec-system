@@ -36,6 +36,11 @@ module RSpecSystem
           value = value * 1024
           custom_config << " prov.customize ['createhd', '--filename', '#{file_to_disk}', '--size', #{value}]\n"
           custom_config << " prov.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', '#{file_to_disk}.vdi']\n"
+        when 'idedisk'
+          file_to_disk = ENV['HOME'] + "/sparedisk#{name}"
+          value = value * 1024
+          custom_config << " prov.customize ['createhd', '--filename', '#{file_to_disk}', '--size', #{value}]\n"
+          custom_config << " prov.customize ['storageattach', :id, '--storagectl', 'IDE Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', '#{file_to_disk}.vdi']\n"
         else
           log.warn("Skipped invalid custom option for node #{name}: #{key}=#{value}")
         end
